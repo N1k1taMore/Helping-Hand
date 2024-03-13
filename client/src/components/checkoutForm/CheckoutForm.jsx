@@ -60,7 +60,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:5173/success",
+        return_url: "https://localhost:5173/success",
       },
     });
 
@@ -84,11 +84,17 @@ const CheckoutForm = () => {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
+      
+<LinkAuthenticationElement
+  id="link-authentication-element"
+  onChange={({ target }) => {
+    if (target) {
+      setEmail(target.value);
+    }
+  }}
+/>
+      
+            <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}

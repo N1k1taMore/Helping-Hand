@@ -43,10 +43,10 @@ function Navbar() {
           </Link>
         </div>
         <div className="links">
-          <span>Graphics & Design</span>
-          <span> Digital Marketing</span>
-          <span>  Development</span>
-           <span> Programming & Tech</span>
+          <Link  className="link1" to="/gigs?cat=design"><span>Graphics & Design</span></Link> 
+          <Link  className="link1"  to="/gigs?cat=design"><span> Digital Marketing</span></Link>                 
+          <Link  className="link1" to="/gigs?cat=design"> <span>  Development</span></Link>          
+          <Link  className="link1" to="/gigs?cat=design"><span> Programming & Tech</span></Link>
           {currentUser ? (
             <div className="user" onClick={() => setOpen(!open)}>
               <img src={currentUser.img || "/img/noavatar.jpg"} alt="" />
