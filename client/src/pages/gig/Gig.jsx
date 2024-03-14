@@ -107,7 +107,7 @@ function Gig() {
                     </div>
                     <div className="item">
                       <span className="title">Member since</span>
-                      <span className="desc">Aug 2022</span>
+                      <span className="desc">Aug 2023</span>
                     </div>
                     <div className="item">
                       <span className="title">Avg. response time</span>
@@ -138,11 +138,7 @@ function Gig() {
             <div className="details">
               <div className="item">
                 <img src="/img/clock.png" alt="" />
-                <span>{data.deliveryDate} Days Delivery</span>
-              </div>
-              <div className="item">
-                <img src="/img/recycle.png" alt="" />
-                <span>{data.revisionNumber} Revisions</span>
+                <span>Delivery in {data.deliveryTime} Days</span>
               </div>
             </div>
             <div className="features">
