@@ -10,7 +10,7 @@ export const createGig = async (req, res, next) => {
     ...req.body,
   });
 
-  try {
+    try {
     const savedGig = await newGig.save();
     res.status(201).json(savedGig);
   } catch (err) {
