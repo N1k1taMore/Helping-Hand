@@ -45,6 +45,13 @@ const CheckoutForm = () => {
     });
   }, [stripe]);
 
+  useEffect(() => {
+    // Call the function to create the payment method domain
+    if (stripe) {
+      createPaymentMethodDomain();
+    }
+  }, [stripe]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,7 +67,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://localhost:5173/success",
+        return_url: "http://localhost:5173/success",
       },
     });
 
@@ -69,7 +76,7 @@ const CheckoutForm = () => {
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
+    if (error && (error.type === "card_error" || error.type === "validation_error")) {
       setMessage(error.message);
     } else {
       setMessage("An unexpected error occurred.");
@@ -78,28 +85,46 @@ const CheckoutForm = () => {
     setIsLoading(false);
   };
 
-  const paymentElementOptions = {
-    layout: "tabs",
-  };
+  async function createPaymentMethodDomain() {
+    try {
+      // Create a payment method domain for a connected Stripe account
+      const paymentMethodDomain = await stripe.paymentMethodDomains.create(
+        {
+          domain_name: 'example.com', // Replace with your actual domain
+        },
+        {
+          stripeAccount: 'pmd_1OuXUwSF6yz5meLepj2apVok', // Replace with the actual connected Stripe account ID
+        }
+      );
+
+      console.log('Payment method domain created:', paymentMethodDomain);
+    } catch (error) {
+      console.error('Error creating payment method domain:', error);
+    }
+  }
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
+      {/* Link Authentication Element */}
+      <LinkAuthenticationElement
+        id="link-authentication-element"
+        onChange={({ target }) => {
+          if (target) {
+            setEmail(target.value);
+          }
+        }}
+      />
       
-<LinkAuthenticationElement
-  id="link-authentication-element"
-  onChange={({ target }) => {
-    if (target) {
-      setEmail(target.value);
-    }
-  }}
-/>
+      {/* Payment Element */}
+      <PaymentElement id="payment-element" />
       
-            <PaymentElement id="payment-element" options={paymentElementOptions} />
+      {/* Submit Button */}
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
       </button>
+      
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
