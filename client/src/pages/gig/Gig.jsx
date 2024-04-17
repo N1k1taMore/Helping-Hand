@@ -1,13 +1,16 @@
-import React from "react";
+import {React,useState} from "react";
+import {  useNavigate } from "react-router-dom";
 import "./Gig.scss";
 import { Slider } from "infinite-react-carousel/lib";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Reviews from "../../components/reviews/Reviews";
 
 function Gig() {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["gig"],
@@ -32,6 +35,24 @@ function Gig() {
     enabled: !!userId,
   });
 
+  const handleBuyClick = async () => {
+    try {
+      setIsCreatingOrder(true);
+      console.log(`${id}`)
+      await newRequest.post(`/orders/${id}`);
+      console.log("Order created")
+      alert("Order placed successfully")
+      navigate("/orders");
+      // Redirect or show success message upon successful order creation
+    } catch (error) {
+      console.error("Error creating order:", error);
+      alert("Error occured while placing order")
+      // Handle error (e.g., show error message)
+    } finally {
+      setIsCreatingOrder(false);
+    }
+    
+  };
   return (
     <div className="gig">
       {isLoading ? (
@@ -149,9 +170,9 @@ function Gig() {
                 </div>
               ))}
             </div>
-            <Link to={`/pay/${id}`}>
-            <button>Continue</button>
-            </Link>
+            <button onClick={handleBuyClick} disabled={isCreatingOrder}>
+            {isCreatingOrder ? "Processing..." : "Buy"}
+          </button>
           </div>
         </div>
       )}

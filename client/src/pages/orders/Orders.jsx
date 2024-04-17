@@ -1,16 +1,23 @@
 import React from "react";
 import "./Orders.scss";
+import getCurrentUser from '../../utils/getCurrentUser';
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
 const Orders = () => {
+  const currentUser = getCurrentUser();
+  const userId = currentUser._id;
+
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
-      newRequest.get(`/orders`).then((res) => {
+      newRequest.get(`/orders/${userId}`).then((res) => {
         return res.data;
       }),
   });
+
+  console.log('currentUser:', currentUser._id);
+  console.log('Order data:', data);
 
   return (
     <div className="orders">
@@ -30,13 +37,13 @@ const Orders = () => {
               <th>Price</th>
               <th>Contact</th>
             </tr>
-            {data.map((order) => (
-              <tr key={order._id}>
+            {data.map((Order) => (
+              <tr key={Order._id}>
                 <td>
-                  <img className="image" src={order.img} alt="" />
+                  <img className="image" src={Order.img} alt="" />
                 </td>
-                <td>{order.title}</td>
-                <td>{order.price}</td>
+                <td>{Order.title}</td>
+                <td>{Order.price}</td>
                 <td>
                   <img
                     className="message"
