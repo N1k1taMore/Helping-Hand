@@ -20,8 +20,17 @@ const connect = async () => {
     console.log(error);
   }
 };
-
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+const allowedOrigins = ['http://localhost:5173', 'https://harmonious-platypus-6d27f9.netlify.app'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json());
 app.use(cookieParser());
 
