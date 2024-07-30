@@ -39,33 +39,16 @@ function Navbar() {
       <div className="container">
         <div className="logo">
           <Link className="link" to="/">
-            <span className="text">Freelance Connect</span>
+            <span className="text">Helping Hand</span>
           </Link>
         </div>
         <div className="links">
-          <Link  className="link1" to="/gigs?cat=design"><span>Graphics & Design</span></Link> 
-          <Link  className="link1"  to="/gigs?cat=design"><span> Digital Marketing</span></Link>                 
-          <Link  className="link1" to="/gigs?cat=design"> <span>  Development</span></Link>          
-          <Link  className="link1" to="/gigs?cat=design"><span> Programming & Tech</span></Link>
           {currentUser ? (
             <div className="user" onClick={() => setOpen(!open)}>
-              <img src={currentUser.img || "/img/noavatar.jpg"} alt="" />
+              <img src={ "/img/noavatar.jpg"} alt="" />
               <span>{currentUser?.username}</span>
               {open && (
                 <div className="options">
-                  {currentUser.isSeller && (
-                    <>
-                      <Link className="link" to="/mygigs">
-                        Gigs
-                      </Link>
-                      <Link className="link" to="/add">
-                        Add New Gig
-                      </Link>
-                    </>
-                  )}
-                  <Link className="link" to="/orders">
-                    Orders
-                  </Link>
                   <Link className="link" onClick={handleLogout}>
                     Logout
                   </Link>

@@ -1,0 +1,41 @@
+.ItemsList {
+    padding: 20px;
+    margin-bottom: 20rem;
+  
+    h1 {
+      margin-bottom: 20px;
+      color: #FFF078;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+  
+      th {
+        background-color: #f4f4f4;
+      }
+  
+      tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+  
+      button {
+        padding: 5px 10px;
+        background-color: #FFF078;
+        color:black;
+        border: none;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #FF4191;
+        }
+      }
+    }
+  }
+ 

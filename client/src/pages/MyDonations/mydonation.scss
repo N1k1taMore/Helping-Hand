@@ -1,0 +1,45 @@
+.ItemsList {
+    padding: 20px;
+    margin-bottom: 20rem;
+  
+    h1 {
+      margin-bottom: 20px;
+      color: #FFF078;
+      text-align: center;
+    }
+  
+    table {
+      width: 50%;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+  
+      th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+  
+      th {
+        background-color: #f4f4f4;
+      }
+  
+      tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+  
+      td {
+        .image {
+          width: 50px;
+          height: 25px;
+          object-fit: cover;
+        }
+
+        .delete {
+          width: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+ 

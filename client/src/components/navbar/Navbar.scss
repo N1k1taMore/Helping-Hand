@@ -1,50 +1,52 @@
+
 .navbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color:#0d084d;
-  color: white;
+  color: #B60071;
   position: sticky;
   top: 0;
   z-index: 999;
   transition: 0.5s all ease;
+  width: 100%;
 
   &.active {
     background-color: white;
-    color: black;
+    color:#B60071;
 
     button {
       background-color: white !important;
-      color:#0d084d  !important;
-      border: 1px solid #524cb2 !important;
+      color:#B60071 !important;
+      border: 1px solid rgb(102, 16, 16) !important;
     }
   }
 
   .container {
     width: 1400px;
+    max-width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 0px;
 
     .logo {
-      font-size: 34px;
+      font-size: 35px;
       font-weight: bold;
     }
     .links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 16px;
       font-family: "Montserrat", sans-serif;
       font-weight: 500;
-      
+
       span {
         white-space: nowrap;
       }
 
-      .link1{
+      .link {
         text-decoration: none;
-        color: white;
+        color: rgb(102, 16, 16);
       }
 
       .user {
@@ -80,19 +82,95 @@
       }
 
       button {
-        color: white;
+        color: rgb(16, 16, 16);
         padding: 10px 20px;
         border-radius: 5px;
-        border: 1px solid white;
+        border: 1px solid rgb(102, 16, 16);
         background-color: transparent;
         cursor: pointer;
 
         &:hover {
-          background-color: #524cb2;
-          border-color: #0d084d;
+          background-color: #E90074;
+          border-color:rgb(102, 16, 16);
         }
       }
     }
   }
+}
 
+@media (max-width: 768px) {
+  .navbar {
+    .container {
+      flex-direction: column;
+      padding: 10px;
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .links {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        align-items: center;
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .user {
+        img {
+          width: 24px;
+          height: 24px;
+        }
+
+        .options {
+          width: 100%;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    .container {
+      padding: 5px;
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .links {
+        gap: 5px;
+
+        button {
+          padding: 8px 16px;
+        }
+      }
+    }
+  }
+}
+
+.options {
+  opacity: 0;
+  animation: showButton 2s forwards;
+}
+
+@keyframes showButton {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
